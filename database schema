@@ -1,0 +1,102 @@
+CREATE TABLE `BUG_ATTACHMENTS` (
+  `BUG_ID` int(11) NOT NULL,
+  `ATTACHMENT_NAME` varchar(50) NOT NULL,
+  `ATTACHMENT_PATH` varchar(130) NOT NULL
+);
+
+
+CREATE TABLE `BUG_INFORMATION` (
+  `BUG_ID` int(11) NOT NULL,
+  `PROGRAM_ID` int(11) NOT NULL,
+  `REPORT_TYPE` varchar(5) DEFAULT NULL,
+  `SEVERITY` varchar(5) DEFAULT NULL,
+  `SUMMARY` varchar(99) NOT NULL,
+  `REPRODUCIBLE` varchar(5) DEFAULT NULL,
+  `REPRODUCTION_STEPS` varchar(199) DEFAULT NULL,
+  `SUGGESTED_FIX` varchar(199) DEFAULT NULL,
+  `REPORTED_BY` int(11) NOT NULL,
+  `REPORTED_BY_DATE` date DEFAULT NULL,
+  `FUNCTIONAL_AREA` int(11) DEFAULT NULL,
+  `ASSIGNED_TO` int(11) DEFAULT NULL,
+  `COMMENTS` varchar(199) DEFAULT NULL,
+  `STATUS` varchar(5) DEFAULT NULL,
+  `PRIORITY` varchar(5) DEFAULT NULL,
+  `RESOLUTION_VERSION` int(11) DEFAULT NULL,
+  `RESOLUTION` varchar(5) DEFAULT NULL,
+  `RESOLVED_BY` int(11) DEFAULT NULL,
+  `RESOLVED_DATE` date DEFAULT NULL,
+  `RESOLUTION_TESTER` int(11) DEFAULT NULL,
+  `TESTING_DATE` date DEFAULT NULL,
+  `DEFECT_DEFERRED` varchar(3) DEFAULT NULL,
+  PRIMARY KEY (`BUG_ID`)
+);
+
+
+CREATE TABLE `EMPLOYEE_INFORMATION` (
+  `EMPLOYEE_ID` int(11) NOT NULL,
+  `status` varchar(8) DEFAULT NULL,
+  `LAST_NAME` varchar(15) DEFAULT NULL,
+  `FIRST_NAME` varchar(15) DEFAULT NULL,
+  `ROLE` varchar(10) NOT NULL,
+  `PASSWORD` varchar(10) NOT NULL,
+  PRIMARY KEY (`EMPLOYEE_ID`)
+) ;
+
+
+CREATE TABLE `FUNCTIONAL_AREA` (
+  `FUNCTIONAL_AREA_ID` int(5) NOT NULL,
+  `FUNCTIONAL_AREA_NAME` varchar(20) NOT NULL,
+  `PROGRAM_ID` int(11) DEFAULT NULL,
+  PRIMARY KEY (`FUNCTIONAL_AREA_ID`)
+) ;
+
+CREATE TABLE `PROGRAM_INFORMATION` (
+  `PROGRAM_ID` int(11) NOT NULL,
+  `PROGRAM` varchar(20) NOT NULL,
+  `P_RELEASE` decimal(2,1) NOT NULL,
+  `VERSION` decimal(2,2) NOT NULL,
+  PRIMARY KEY (`PROGRAM_ID`)
+);
+
+CREATE TABLE `HARDCODED_VALUES` (
+  `CONSTANT_ID` varchar(5) NOT NULL,
+  `CONSTANT_NAME` varchar(30) NOT NULL,
+  `FIELD` varchar(20) NOT NULL,
+  `STATUS` varchar(5) DEFAULT NULL
+) ;
+
+--
+-- Dumping data for table `HARDCODED_VALUES`
+--
+
+INSERT INTO `HARDCODED_VALUES` (`CONSTANT_ID`, `CONSTANT_NAME`, `FIELD`, `STATUS`) VALUES
+('F101', 'functionalArea1', 'Functional Area', NULL),
+('F102', 'functionalArea2', 'Functional Area', NULL),
+('F103', 'functionalArea3', 'Functional Area', NULL),
+('P101', 'Fix Immediately', 'Priority', NULL),
+('P102', 'Fix as soon as possible', 'Priority', NULL),
+('P103', 'Fix before next milestone', 'Priority', NULL),
+('P104', 'Fix before release', 'Priority', NULL),
+('P105', 'Fix if possible', 'Priority', NULL),
+('P106', 'Optional', 'Priority', NULL),
+('R101', 'Coding Error', 'Report Type', NULL),
+('R102', 'Design Issue', 'Report Type', NULL),
+('R103', 'Suggestion', 'Report Type', NULL),
+('R104', 'Documentation', 'Report Type', NULL),
+('R105', 'Hardware', 'Report Type', NULL),
+('R106', 'Query', 'Report Type', NULL),
+('RE101', 'Pending', 'Resolution', NULL),
+('RE102', 'Fixed', 'Resolution', NULL),
+('RE103', 'Irreproducible', 'Resolution', NULL),
+('RE104', 'Deferred', 'Resolution', NULL),
+('RE105', 'As designed', 'Resolution', NULL),
+('RE106', 'Withdrawn by Reporter', 'Resolution', NULL),
+('RE107', 'Need more info', 'Resolution', NULL),
+('RE108', 'Disagree with suggestion', 'Resolution', NULL),
+('RE109', 'Duplicate', 'Resolution', NULL),
+('S101', 'Minor', 'Severity', NULL),
+('S102', 'Serious', 'Severity', NULL),
+('S103', 'Fatal', 'Severity', NULL),
+('ST101', 'Open', 'Status', NULL),
+('ST102', 'Closed', 'Status', NULL),
+('ST103', 'Resolved', 'Status', NULL);

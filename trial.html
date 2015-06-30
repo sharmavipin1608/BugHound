@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script>
+            function download()
+            {
+                alert("download");
+                window.location("/Users/vipinsharma/NetBeansProjects/BugHound/uploadedAttachments/153/web-developer-rev0415.doc");
+            }
+        </script>
+    </head>
+    
+    <body>
+        <form name="trial" action="trial.php" method="POST" enctype="multipart/form-data">
+            <input type="file" name="fileToUpload[]"/>
+            <input type="file" name="fileToUpload[]"/>
+            <input type="submit" value="submit"/>
+            
+            <input type='button' value='download' onclick="download()"/>
+            
+            <a href="/Applications/MAMP/htdocs/BugHound/uploadedAttachments/153/web-developer-rev0415.doc">click link...</a>
+        </form>
+    </body>
+</html>

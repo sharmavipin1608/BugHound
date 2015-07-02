@@ -65,26 +65,50 @@ function loadFunctionalArea(programId,clearMessage)
     ajaxRequest.send(null);
 }
 
+function checkForDuplicateFunctionalArea(functionalAreaName)
+{
+    if(document.getElementById('functionalAreasForProgram'))
+    {
+        var functionAreaListFromDB = document.getElementById('functionalAreasForProgram').value;
+        var functionAreaList = functionAreaListFromDB.split(",");
+        for(var i = 0; i<functionAreaList.length; i++)
+        {
+            if(functionalAreaName == functionAreaList[i])
+            {
+                return true;
+            }
+
+        }
+    }
+    return false;
+}
+
 function saveFunctionalArea(formId)
 {
     var submit = validateMandatoryFields(formId);
-    
     if(submit)
     {
-        var ajaxRequest = new XMLHttpRequest();
-        var programName = document.getElementById('programName').value;
-        var functionalArea = document.getElementById('functionalArea').value;
+        var functionalAreaName = document.getElementById('functionalArea').value.trim();
+        var duplicate = checkForDuplicateFunctionalArea(functionalAreaName);
+        if(duplicate)
+            alert("Functional Area already present for the Program");
+        else
+        {
+            var ajaxRequest = new XMLHttpRequest();
+            var programName = document.getElementById('programName').value;
+            //var functionalArea = document.getElementById('functionalArea').value;
 
-        ajaxRequest.onreadystatechange = function () {
-            if (ajaxRequest.readyState == 4) {
-                var ajaxDisplay = document.getElementById('message');
-                ajaxDisplay.innerHTML = ajaxRequest.responseText;
-                loadFunctionalArea(programName,false);
+            ajaxRequest.onreadystatechange = function () {
+                if (ajaxRequest.readyState == 4) {
+                    var ajaxDisplay = document.getElementById('message');
+                    ajaxDisplay.innerHTML = ajaxRequest.responseText;
+                    loadFunctionalArea(programName,false);
+                }
             }
-        }
 
-        ajaxRequest.open("GET", "saveOrUpdateFunctionalArea.php?programName="+programName+"&functionalArea="+functionalArea, true);
-        ajaxRequest.send(null);
+            ajaxRequest.open("GET", "saveOrUpdateFunctionalArea.php?programName="+programName+"&functionalArea="+functionalAreaName, true);
+            ajaxRequest.send(null);
+        }
     }
     else
         alert("Please enter all the mandatory fields.");
@@ -100,16 +124,23 @@ function updateFunctionalArea(fieldNum,functionalAreaId)
         alert("Please enter a valid name for functional area before Update.")
     }
     else{
-        var ajaxRequest = new XMLHttpRequest();
-        
-        ajaxRequest.onreadystatechange = function () {
-            if (ajaxRequest.readyState == 4) {
-                alert("Functional Area #"+functionalAreaId+" updated successfully.");
-            }
-        }
+        var duplicate = checkForDuplicateFunctionalArea(functionalAreaName);
+        if(duplicate)
+            alert("Functional Area already present for the Program");
+        else
+        {
+            var ajaxRequest = new XMLHttpRequest();
 
-        ajaxRequest.open("GET", "saveOrUpdateFunctionalArea.php?functionalAreaId="+functionalAreaId+"&functionalArea="+functionalAreaName, true);
-        ajaxRequest.send(null);
+            ajaxRequest.onreadystatechange = function () {
+                if (ajaxRequest.readyState == 4) {
+                    alert("Functional Area #"+functionalAreaId+" updated successfully.");
+                    document.getElementById('functionalAreasForProgram').value=document.getElementById('functionalAreasForProgram').value+functionalAreaName+",";
+                }
+            }
+
+            ajaxRequest.open("GET", "saveOrUpdateFunctionalArea.php?functionalAreaId="+functionalAreaId+"&functionalArea="+functionalAreaName, true);
+            ajaxRequest.send(null);
+        }
     }
 }
 

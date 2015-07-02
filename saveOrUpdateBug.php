@@ -94,15 +94,17 @@
                 $cond.=", RESOLVED_BY = '$resolvedBy'";
             if($_POST['testedByDate'])
                 $cond.=", RESOLUTION_TESTER = '$testedBy'";
+            if($_POST['resolutionVersion']!="")
+                $cond.=", RESOLUTION_VERSION = $resolutionVersion";
             
             $query = "UPDATE BUG_INFORMATION SET FUNCTIONAL_AREA = $functionalArea,"
                     . "COMMENTS = '$comments', PRIORITY = '$priority', "
-                    . "RESOLUTION_VERSION = $resolutionVersion, RESOLUTION = '$resolution',"
+                    . "RESOLUTION = '$resolution',"
                     . "RESOLVED_DATE = '$resolvedByDate', TESTING_DATE = '$testedByDate', "
                     . "DEFECT_DEFERRED = '$deferred' $cond where BUG_ID = $bugId;";
             
-            //echo $query;
-            
+//            echo $query;
+//            
             $stmt = $conn->prepare($query);
             
 //            $stmt->bindParam(':functionalArea', $functionalArea);

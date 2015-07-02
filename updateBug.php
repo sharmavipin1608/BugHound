@@ -231,7 +231,7 @@
                     <td>
                         <label for="resolutionVersion">Resolution Version</label>
                         <select id="resolutionVersion" name="resolutionVersion">
-                            <option value="%">--Select--</option>
+                            <option value="">--Select--</option>
                             <?php while ($row = mysql_fetch_array($programResolutionVersion)) { ?>
                                 <option value="<?php echo $row['PROGRAM_ID']; ?>" <?php if($bugDetails['RESOLUTION_VERSION'] == $row['PROGRAM_ID']) print 'selected = "selected"' ?> ><?php echo $row['PROGRAM']."-".($row["P_RELEASE"]+$row["VERSION"]); ?></option>
                             <?php } ?>

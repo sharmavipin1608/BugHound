@@ -96,6 +96,8 @@
                 $cond.=", RESOLUTION_TESTER = '$testedBy'";
             if($_POST['resolutionVersion']!="")
                 $cond.=", RESOLUTION_VERSION = $resolutionVersion";
+            if($_POST['suggestedFix']!="")
+                $cond.=", SUGGESTED_FIX = '$suggestedFix'";
             
             $query = "UPDATE BUG_INFORMATION SET FUNCTIONAL_AREA = $functionalArea,"
                     . "COMMENTS = '$comments', PRIORITY = '$priority', "

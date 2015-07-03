@@ -156,7 +156,7 @@
                 <tr>
                     <td colspan="3">
                         <label for="suggestedFix">Suggested Fix</label>
-                        <textarea readonly="true" id="suggestedFix" style="width:100%" name="suggestedFix"><?php echo $bugDetails['SUGGESTED_FIX']; ?></textarea>
+                        <textarea id="suggestedFix" style="width:100%" name="suggestedFix"><?php echo $bugDetails['SUGGESTED_FIX']; ?></textarea>
                     </td>
                 </tr>
 

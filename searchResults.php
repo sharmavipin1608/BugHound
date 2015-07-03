@@ -57,6 +57,8 @@
             $cond.="and BI.PRIORITY like ('$priority')";
         if($resolution != '%')
             $cond.="and BI.RESOLUTION like ('$resolution')";
+        if($program != '%')
+            $cond.="and BI.PROGRAM_ID = $program";
         
         //Get list of programs from DB
         $query = "SELECT DISTINCT(BUG_ID),PROGRAM,"
@@ -65,7 +67,7 @@
                 . "(select constant_name from HARDCODED_VALUES where CONSTANT_ID = BI.STATUS) as STATUS_NAME"
                 . ",SUMMARY,RESOLVED_BY,RESOLUTION_TESTER,(select FIRST_NAME from EMPLOYEE_INFORMATION where BI.ASSIGNED_TO=EMPLOYEE_ID) as ASSIGNED"
                 . " FROM BUG_INFORMATION BI,PROGRAM_INFORMATION PI WHERE BI.PROGRAM_ID = PI.PROGRAM_ID "
-                . "and BI.PROGRAM_ID like ('$program') and BI.REPORT_TYPE like ('$reportType') "
+                . " and BI.REPORT_TYPE like ('$reportType') "
                 . "and BI.SEVERITY like ('$severity') and BI.REPORTED_BY like ('$reportedBy')"
                 . "and BI.STATUS like ('$status') and BI.REPORTED_BY_DATE like ('$reportedByDate')"
                 . "$cond order by BUG_ID;";
